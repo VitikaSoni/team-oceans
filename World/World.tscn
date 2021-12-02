@@ -1,0 +1,145 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Players/Player1/Player1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Players/Player2/Player2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://People/Person.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/Background.png" type="Texture" id=4]
+[ext_resource path="res://World/World.gd" type="Script" id=5]
+[ext_resource path="res://UI/GameUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Players/Player2/Player2_idle.png" type="Texture" id=7]
+[ext_resource path="res://Players/Player2/Player2_walk2.png" type="Texture" id=8]
+[ext_resource path="res://Players/Player2/Player2_walk1.png" type="Texture" id=9]
+[ext_resource path="res://Players/Player2/Player2_in_water.png" type="Texture" id=10]
+[ext_resource path="res://UI/font.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 224.264, 11 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 11.883, 127.967 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 12.883, 128.205 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 215.565, 11 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 41.9566, 116.897 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "WalkInWater",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=7]
+size = 24
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+font_data = ExtResource( 11 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 512.0
+margin_bottom = 300.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollectibleTrashes" type="Node2D" parent="."]
+
+[node name="People" type="Node2D" parent="."]
+
+[node name="Person" parent="People" instance=ExtResource( 3 )]
+position = Vector2( 9, 154 )
+
+[node name="PeopleSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="GamePlayedTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="StaticBodies" type="Node2D" parent="."]
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="StaticBodies"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBodies/StaticBody2D2"]
+position = Vector2( 211.172, 250.203 )
+shape = SubResource( 1 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="StaticBodies"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBodies/StaticBody2D4"]
+position = Vector2( -11.4126, 115.602 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="StaticBodies"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBodies/StaticBody2D3"]
+position = Vector2( 433.074, 122.189 )
+shape = SubResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="StaticBodies"]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBodies/StaticBody2D"]
+position = Vector2( 211.934, -9.5874 )
+shape = SubResource( 4 )
+
+[node name="WaterArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
+position = Vector2( 381.583, 119.285 )
+shape = SubResource( 5 )
+
+[node name="Player2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 340.02, 98.889 )
+
+[node name="AnimatedSprite" parent="Player2/Position2D" index="0"]
+frames = SubResource( 6 )
+
+[node name="Player1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 340.208, 175.976 )
+
+[node name="GameUI" parent="." instance=ExtResource( 6 )]
+
+[node name="ScoreLabel" parent="GameUI" index="0"]
+custom_fonts/font = SubResource( 7 )
+
+[node name="WaterTrashLabel" parent="GameUI" index="1"]
+custom_fonts/font = SubResource( 8 )
+
+[connection signal="timeout" from="PeopleSpawnTimer" to="." method="_on_PeopleSpawnTimer_timeout"]
+[connection signal="timeout" from="GamePlayedTimer" to="." method="_on_GamePlayedTimer_timeout"]
+[connection signal="body_entered" from="WaterArea" to="." method="_on_WaterArea_body_entered"]
+[connection signal="body_exited" from="WaterArea" to="." method="_on_WaterArea_body_exited"]
+
+[editable path="Player2"]
+[editable path="GameUI"]

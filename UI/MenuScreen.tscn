@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://UI/MenuScreen.gd" type="Script" id=1]
+[ext_resource path="res://UI/font.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Players/Player1/Player1_idle.png" type="Texture" id=3]
+[ext_resource path="res://Players/Player2/Player2_idle.png" type="Texture" id=4]
+[ext_resource path="res://Players/Stopper.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.901961, 0.752941, 0.494118, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 3
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="MenuScreen" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 274.0
+margin_bottom = 103.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.317647, 0.65098, 0.941176, 1 )
+text = "START"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HowToPlayButton" type="Button" parent="."]
+margin_left = 48.0
+margin_top = 112.0
+margin_right = 350.0
+margin_bottom = 151.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.317647, 0.65098, 0.941176, 1 )
+text = "HOW TO PLAY"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScoreLabel" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 208.0
+margin_right = 252.0
+margin_bottom = 241.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.317647, 0.65098, 0.941176, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "HIGH SCORE:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Decoration" type="Node2D" parent="."]
+
+[node name="Stopper" type="Sprite" parent="Decoration"]
+position = Vector2( 285.168, 79.5281 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Player1Idle" type="Sprite" parent="Decoration/Stopper"]
+texture = ExtResource( 3 )
+
+[node name="Stopper2" type="Sprite" parent="Decoration"]
+position = Vector2( 112, 80 )
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="Player2Idle" type="Sprite" parent="Decoration/Stopper2"]
+texture = ExtResource( 4 )
+flip_h = true
+
+[connection signal="pressed" from="StartButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HowToPlayButton" to="." method="_on_HowToPlayButton_pressed"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/WalkInWater.wav-9f044f9623a958f0ecea864eb96f0b93.sample"
+
+[deps]
+
+source_file="res://Players/WalkInWater.wav"
+dest_files=[ "res://.import/WalkInWater.wav-9f044f9623a958f0ecea864eb96f0b93.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

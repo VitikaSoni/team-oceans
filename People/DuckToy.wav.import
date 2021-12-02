@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/DuckToy.wav-b8938513b561e8b6b12152093d771e57.sample"
+
+[deps]
+
+source_file="res://People/DuckToy.wav"
+dest_files=[ "res://.import/DuckToy.wav-b8938513b561e8b6b12152093d771e57.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
